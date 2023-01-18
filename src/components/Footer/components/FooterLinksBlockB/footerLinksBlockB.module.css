@@ -1,0 +1,16 @@
+.wr {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    font-size: 12px;
+    font-family: sans-serif;
+}
+
+.wr a {
+    text-decoration: none;
+    color: black;
+}
+
+.activeLink {
+    color: rgb(255, 153, 0);
+}
