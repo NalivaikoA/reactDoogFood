@@ -3,6 +3,8 @@ import {
   Formik, Form, Field, ErrorMessage,
 } from 'formik'
 import classNames from 'classnames'
+import { useMutation } from '@tanstack/react-query'
+import { useNavigate } from 'react-router-dom'
 import { signUpFormValidationSchema } from './ValidatorSignUp'
 import signUpFormStyles from './signUpForm.module.css'
 
@@ -12,11 +14,27 @@ const initialValues = {
   password: '',
 }
 
-const submitHandler = (values) => {
-  console.log({ values })
-}
-
 export function SignUpForm() {
+  const navigate = useNavigate()
+
+  const { mutateAsync, isLoading } = useMutation({
+    mutationFn: (data) => fetch('https://api.react-learning.ru/signup', {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    }).then((res) => res.json()).then((res) => console.log(res)),
+  })
+
+  const submitHandler = async (values) => {
+    console.log({ values })
+
+    await mutateAsync(values)
+
+    navigate('/signin')
+  }
+
   return (
     <Formik
       initialValues={initialValues}
@@ -37,6 +55,7 @@ export function SignUpForm() {
         <ErrorMessage component="p" className="error" name="password" />
 
         <button
+          disabled={isLoading}
           className={classNames(
             'btn',
             'btn-primary',
