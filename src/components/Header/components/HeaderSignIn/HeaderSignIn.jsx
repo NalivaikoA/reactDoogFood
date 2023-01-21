@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom'
-import headerSignInStyles from './headerSignIn.module.css'
+import Styles from './headerSignIn.module.css'
 
 export function HeaderSignIn() {
   return (
-    <div className={headerSignInStyles.wr}>
+    <div className={Styles.wr}>
       <nav>
         <ul>
           <li>

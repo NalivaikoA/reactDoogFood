@@ -11,9 +11,10 @@ import {
 } from '@tanstack/react-query'
 import App from './App'
 import { ProductsList } from './components/Pages/ProductsList/ProductsList'
-import { SignInForm } from './components/Pages/SignInForm/SignInForm'
-import { SignUpForm } from './components/Pages/SignUpForm/SignUpForm'
+import { SignInForm } from './components/Pages/Forms/SignInForm/SignInForm'
+import { SignUpForm } from './components/Pages/Forms/SignUpForm/SignUpForm'
 import { Main } from './components/Main/Main'
+import { ContextAppProvider } from './contexts/ContextApp'
 
 const router = createBrowserRouter([
   {
@@ -52,8 +53,10 @@ const queryClient = new QueryClient({
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
   <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
-    </QueryClientProvider>
+    <ContextAppProvider>
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+      </QueryClientProvider>
+    </ContextAppProvider>
   </React.StrictMode>,
 )

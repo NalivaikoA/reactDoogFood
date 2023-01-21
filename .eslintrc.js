@@ -28,5 +28,6 @@ module.exports = {
     'react/jsx-filename-extension': 0,
     'max-len': ['error', { code: 100 }],
     'linebreak-style': 0,
+    'no-underscore-dangle': ['error', { allow: ['_id'] }],
   },
 }
