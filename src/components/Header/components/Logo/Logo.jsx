@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import { Link } from 'react-router-dom'
 import logoStyles from './logo.module.css'
 import logo from './logo.png'

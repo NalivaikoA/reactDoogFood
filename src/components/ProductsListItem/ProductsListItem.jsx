@@ -9,16 +9,16 @@ export function ProductsListItem({
         <img src={img} className={styles.card__image} alt="картинка" />
       </div>
       <div className={styles.card__body}>
-        <h6>{name}</h6>
-        <p>
+        <h6>
           {price}
           {' '}
-          р
-        </p>
+          ₽
+        </h6>
         <p>{wight}</p>
+        <p>{name}</p>
       </div>
       <div className={styles.button__body}>
-        <button type="button" className="btn btn-warning"><b>В корзину</b></button>
+        <button type="button" className="btn btn-warning">В корзину</button>
       </div>
     </div>
   )

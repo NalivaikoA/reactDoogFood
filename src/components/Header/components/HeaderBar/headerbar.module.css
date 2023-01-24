@@ -1,6 +1,7 @@
 .wr {
     display: flex;
     gap: 10px;
+    align-items: center;
 }
 
 .wr ul {

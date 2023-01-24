@@ -7,6 +7,7 @@ import { useMutation } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
 import { signUpFormValidationSchema } from '../helpers/Validator'
 import signUpFormStyles from './signUpForm.module.css'
+import { dogFoodApi } from '../../../../api/DogFoodApi'
 
 const initialValues = {
   email: '',
@@ -15,16 +16,13 @@ const initialValues = {
 }
 
 export function SignUpForm() {
+  console.log('Рендерится компонент SignUpForm')
   const navigate = useNavigate()
 
-  const { mutateAsync, isLoading } = useMutation({
-    mutationFn: (data) => fetch('https://api.react-learning.ru/signup', {
-      method: 'POST',
-      headers: {
-        'Content-type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    }).then((res) => res.json()).then((res) => console.log(res)),
+  const {
+    mutateAsync, isLoading,
+  } = useMutation({
+    mutationFn: (values) => dogFoodApi.signUp(values),
   })
 
   const submitHandler = async (values) => {

@@ -5,6 +5,7 @@ import { FooterLinksBlockB } from './components/FooterLinksBlockB/FooterLinksBlo
 import footerStyles from './footer.module.css'
 
 export function Footer() {
+  console.log('Рендерится компонент Footer')
   return (
     <footer className={footerStyles.wr}>
       <div className={footerStyles.logo}>

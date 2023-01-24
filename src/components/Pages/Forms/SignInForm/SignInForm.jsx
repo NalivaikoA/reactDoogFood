@@ -6,6 +6,7 @@ import {
 } from 'formik'
 import { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { dogFoodApi } from '../../../../api/DogFoodApi'
 import { ContextApp } from '../../../../contexts/ContextApp'
 import { signInFormValidationSchema } from '../helpers/Validator'
 import signInFormStyles from './signInForm.module.css'
@@ -16,20 +17,15 @@ const initialValues = {
 }
 
 export function SignInForm() {
-  const { SIGNUP_DATA_LS_KEY } = useContext(ContextApp)
+  console.log('Рендерится компонент SignInForm')
+  const { TOKEN_LS_KEY } = useContext(ContextApp)
   const navigate = useNavigate()
 
   const { mutateAsync, isLoading } = useMutation({
-    mutationFn: (data) => fetch('https://api.react-learning.ru/signin', {
-      method: 'POST',
-      headers: {
-        'Content-type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    }).then((res) => res.json()).then((result) => {
-      localStorage.setItem(SIGNUP_DATA_LS_KEY, JSON.stringify(result.token))
-      console.log(result)
-    }),
+    mutationFn: (values) => dogFoodApi.signIn(values)
+      .then((result) => {
+        localStorage.setItem(TOKEN_LS_KEY, JSON.stringify(result.token))
+      }),
   })
 
   const submitHandler = async (values) => {
