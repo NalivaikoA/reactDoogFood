@@ -35,7 +35,7 @@ export function ProductsList() {
 
   const { getTokenFromLS } = useContext(ContextApp)
 
-  const dataSignInFromLS = getTokenFromLS()
+  const tokenFromLS = getTokenFromLS()
 
   // useEffect(() => {
   //   if (!dataSignUpFromLS.length) {
@@ -43,7 +43,7 @@ export function ProductsList() {
   //   }
   // }, [])
 
-  if (!dataSignInFromLS.length) {
+  if (!tokenFromLS.length) {
     useEffect(() => navigate('/signin'))
     return null
   }
@@ -54,7 +54,7 @@ export function ProductsList() {
     queryKey: ['productsListFetch'],
     queryFn: () => fetch('https://api.react-learning.ru/products', {
       headers: {
-        authorization: `Bearer ${dataSignInFromLS}`,
+        authorization: `Bearer ${tokenFromLS}`,
       },
     }).then((res) => {
       if (res.status >= 400 && res.status < 500) {
@@ -85,26 +85,3 @@ export function ProductsList() {
     />
   )
 }
-
-// const {
-//   data: products, isLoading, isError, error, refetch,
-// } = useQuery({
-//   queryKey: ['productsListFetch'],
-//   queryFn: () => fetch('https://api.react-learning.ru/products', {
-//     headers: {
-//       authorization: `Bearer ${dataSignInFromLS}`,
-//     },
-//   }).then((res) => {
-//     if (res.status >= 400 && res.status < 500) {
-//       throw new Error(`Произошла ошибка при получении списка продуктов.
-//       Проверьте отправляемые данные. Status: ${res.status}`)
-//     }
-
-//     if (res.status >= 500) {
-//       throw new Error(`Произошла ошибка при получении списка продуктов.
-//         Попробуйте сделать запрос позже. Status: ${res.status}`)
-//     }
-
-//     return res.json()
-//   }),
-// })

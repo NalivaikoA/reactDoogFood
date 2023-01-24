@@ -14,7 +14,7 @@ class DogFoodApi {
   //   }
 
   checkToken() {
-    if (this.token) throw new Error('Отсутствует токен')
+    if (!this.token) throw new Error('Отсутствует токен')
   }
 
   async signIn(values) {
