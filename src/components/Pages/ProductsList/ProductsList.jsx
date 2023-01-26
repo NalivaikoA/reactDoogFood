@@ -69,6 +69,7 @@ export function ProductsList() {
 
       return res.json()
     }),
+    enabled: tokenFromLS !== undefined,
   })
 
   console.log({

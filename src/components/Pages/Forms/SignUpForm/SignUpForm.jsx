@@ -51,7 +51,6 @@ export function SignUpForm() {
         <label htmlFor="password">Пароль</label>
         <Field name="password" placeholder="Пароль" type="password" />
         <ErrorMessage component="p" className="error" name="password" />
-
         <button
           disabled={isLoading}
           className={classNames(

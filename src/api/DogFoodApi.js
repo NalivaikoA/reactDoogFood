@@ -9,9 +9,9 @@ class DogFoodApi {
     return `Bearer ${this.token}`
   }
 
-  //   setToken(token) {
-  //     this.token = token;
-  //   }
+  // setToken(token) {
+  //   this.token = token
+  // }
 
   checkToken() {
     if (!this.token) throw new Error('Отсутствует токен')
