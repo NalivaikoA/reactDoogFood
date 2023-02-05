@@ -1,19 +1,23 @@
 /* eslint-disable react/no-unescaped-entities */
-import { useContext, useEffect } from 'react'
+import { useEffect } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 import styles from './productsList.module.css'
-import { ContextApp } from '../../../contexts/ContextApp'
 import { ProductsListItem } from '../../ProductsListItem/ProductsListItem'
 import { withQuery } from '../../HOCs/withQuery'
+import { getSearchSelector } from '../../../redux/slices/filterSlice'
+import { getQueryKey } from './utils'
+import { getIniteState } from '../../../redux/initState'
+// import { dogFoodApi } from '../../../api/DogFoodApi'
 
 function ProductsListInner({ products }) {
   console.log('Рендерится компонент ProductsListInner')
-  if (!products.products.length) return <p>List is empty ...</p>
+  if (!products.length) return <p>List is empty ...</p>
 
   return (
     <div className={styles.wr}>
-      {products.products.map((el) => (
+      {products.map((el) => (
         <ProductsListItem
           key={el._id}
           id={el._id}
@@ -33,9 +37,11 @@ export function ProductsList() {
   console.log('Рендерится компонент ProductsList')
   const navigate = useNavigate()
 
-  const { getTokenFromLS } = useContext(ContextApp)
+  const search = useSelector(getSearchSelector)
 
-  const tokenFromLS = getTokenFromLS()
+  const tokenFromLSReduxA = getIniteState()
+  const tokenFromLSRedux = tokenFromLSReduxA.user.token
+  console.log(tokenFromLSRedux)
 
   // useEffect(() => {
   //   if (!dataSignUpFromLS.length) {
@@ -43,7 +49,7 @@ export function ProductsList() {
   //   }
   // }, [])
 
-  if (!tokenFromLS.length) {
+  if (!tokenFromLSRedux.length) {
     useEffect(() => navigate('/signin'))
     return null
   }
@@ -51,10 +57,10 @@ export function ProductsList() {
   const {
     data: products, isLoading, isError, error, refetch,
   } = useQuery({
-    queryKey: ['productsListFetch'],
-    queryFn: () => fetch('https://api.react-learning.ru/products', {
+    queryKey: getQueryKey(search),
+    queryFn: () => fetch(`https://api.react-learning.ru/products/search?query=${search}`, {
       headers: {
-        authorization: `Bearer ${tokenFromLS}`,
+        authorization: `Bearer ${tokenFromLSRedux}`,
       },
     }).then((res) => {
       if (res.status >= 400 && res.status < 500) {
@@ -69,7 +75,7 @@ export function ProductsList() {
 
       return res.json()
     }),
-    enabled: tokenFromLS !== undefined,
+    enabled: tokenFromLSRedux !== undefined,
   })
 
   console.log({

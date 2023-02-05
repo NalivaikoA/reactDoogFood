@@ -1,17 +1,38 @@
+import { useEffect, useState } from 'react'
+
+import { useDispatch } from 'react-redux'
+import { useDebounce } from '../../../../hooks/useDebounce'
+import { changeSearchFilter } from '../../../../redux/slices/filterSlice'
+
 export function SearchBar() {
+  const [search, setSearch] = useState('')
+
+  const dispatch = useDispatch()
+
+  const debouncedSearchValue = useDebounce(search, 300)
+
+  const changeSearchHandler = (e) => {
+    const newSearchValue = e.target.value
+
+    setSearch(newSearchValue)
+  }
+
+  useEffect(() => {
+    dispatch(changeSearchFilter(debouncedSearchValue))
+  }, [debouncedSearchValue, dispatch])
+
   return (
     <nav className="navbar bg-transparent">
       <div className="container-fluid">
         <form className="d-flex" role="search">
           <input
+            value={search}
+            onChange={changeSearchHandler}
             className="form-control me-2"
             type="search"
             placeholder="Поиск"
             aria-label="Search"
           />
-          <button className="btn btn-secondary" type="submit">
-            Найти
-          </button>
         </form>
       </div>
     </nav>

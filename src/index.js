@@ -10,12 +10,13 @@ import {
   QueryClient,
   QueryClientProvider,
 } from '@tanstack/react-query'
+import { Provider } from 'react-redux'
 import App from './App'
 import { ProductsList } from './components/Pages/ProductsList/ProductsList'
 import { SignInForm } from './components/Pages/Forms/SignInForm/SignInForm'
 import { SignUpForm } from './components/Pages/Forms/SignUpForm/SignUpForm'
 import { Main } from './components/Main/Main'
-import { ContextAppProvider } from './contexts/ContextApp'
+import { store } from './redux/store'
 
 const router = createBrowserRouter([
   {
@@ -40,7 +41,7 @@ const router = createBrowserRouter([
       },
     ],
   },
-], { basename: '/reactDoogFood' })
+])
 // ,{ basename: '/reactDoogFood' }
 
 const queryClient = new QueryClient({
@@ -54,10 +55,10 @@ const queryClient = new QueryClient({
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
   <React.StrictMode>
-    <ContextAppProvider>
-      <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={queryClient}>
+      <Provider store={store}>
         <RouterProvider router={router} />
-      </QueryClientProvider>
-    </ContextAppProvider>
+      </Provider>
+    </QueryClientProvider>
   </React.StrictMode>,
 )

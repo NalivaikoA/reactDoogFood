@@ -1,15 +1,16 @@
 import classNames from 'classnames'
-import { useContext } from 'react'
+// import { useContext } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import styles from './headerSignOut.module.css'
-import { ContextApp } from '../../../../contexts/ContextApp'
+// import { ContextApp } from '../../../../contexts/ContextApp'
+import { TOKEN_LS_KEY_A } from '../../../../redux/constants'
 
 export function HeaderSignOut() {
   const navigate = useNavigate()
-  const { TOKEN_LS_KEY } = useContext(ContextApp)
+  // const { TOKEN_LS_KEY } = useContext(ContextApp)
   const clickHandler = (e) => {
     e.preventDefault()
-    localStorage.removeItem(TOKEN_LS_KEY)
+    localStorage.removeItem(TOKEN_LS_KEY_A)
     navigate('/')
   }
   return (
