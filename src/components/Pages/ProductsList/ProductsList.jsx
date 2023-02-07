@@ -39,17 +39,9 @@ export function ProductsList() {
 
   const search = useSelector(getSearchSelector)
 
-  const tokenFromLSReduxA = getIniteState()
-  const tokenFromLSRedux = tokenFromLSReduxA.user.token
-  console.log(tokenFromLSRedux)
+  const { user: { token } } = getIniteState()
 
-  // useEffect(() => {
-  //   if (!dataSignUpFromLS.length) {
-  //     navigate('/signin')
-  //   }
-  // }, [])
-
-  if (!tokenFromLSRedux.length) {
+  if (!token.length) {
     useEffect(() => navigate('/signin'))
     return null
   }
@@ -60,7 +52,7 @@ export function ProductsList() {
     queryKey: getQueryKey(search),
     queryFn: () => fetch(`https://api.react-learning.ru/products/search?query=${search}`, {
       headers: {
-        authorization: `Bearer ${tokenFromLSRedux}`,
+        authorization: `Bearer ${token}`,
       },
     }).then((res) => {
       if (res.status >= 400 && res.status < 500) {
@@ -75,7 +67,7 @@ export function ProductsList() {
 
       return res.json()
     }),
-    enabled: tokenFromLSRedux !== undefined,
+    enabled: token !== undefined,
   })
 
   console.log({

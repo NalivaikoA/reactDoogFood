@@ -17,6 +17,7 @@ import { SignInForm } from './components/Pages/Forms/SignInForm/SignInForm'
 import { SignUpForm } from './components/Pages/Forms/SignUpForm/SignUpForm'
 import { Main } from './components/Main/Main'
 import { store } from './redux/store'
+import { Cart } from './components/Pages/Cart/Cart'
 
 const router = createBrowserRouter([
   {
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
       {
         path: 'signin',
         element: <SignInForm />,
+      },
+      {
+        path: 'cart',
+        element: <Cart />,
       },
     ],
   },

@@ -4,8 +4,12 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    min-height: 400px;
     font-size: 20px;
     font-family: sans-serif;
     min-height: calc(100vh - 100px - 160px);
+}
+
+.wr img {
+    width: 150px;
+    height: 150px;
 }

@@ -10,6 +10,7 @@ export const initState = {
   filter: {
     search: '',
   },
+  cart: [],
 }
 
 export const getIniteState = () => {
