@@ -1,0 +1,15 @@
+.wr {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    background-color: rgb(209, 47, 19);
+    border-radius: 12px;
+    font-size: 14px;
+    color: white;
+    z-index: 5;
+    left: 15px;
+    top: 0px;    
+}

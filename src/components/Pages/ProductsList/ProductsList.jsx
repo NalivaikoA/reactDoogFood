@@ -41,10 +41,11 @@ export function ProductsList() {
 
   const { user: { token } } = getIniteState()
 
-  if (!token.length) {
-    useEffect(() => navigate('/signin'))
-    return null
-  }
+  useEffect(() => {
+    if (!token) {
+      navigate('/signin')
+    }
+  }, [token])
 
   const {
     data: products, isLoading, isError, error, refetch,
@@ -67,7 +68,7 @@ export function ProductsList() {
 
       return res.json()
     }),
-    enabled: token !== undefined,
+    enabled: (token !== undefined) && (token !== ''),
   })
 
   console.log({

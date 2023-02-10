@@ -16,6 +16,5 @@ export const initState = {
 export const getIniteState = () => {
   const dataFromLS = window.localStorage.getItem(TOKEN_LS_KEY_A)
   const preparedData = dataFromLS ? JSON.parse(dataFromLS) : initState
-  console.log(preparedData)
   return preparedData
 }

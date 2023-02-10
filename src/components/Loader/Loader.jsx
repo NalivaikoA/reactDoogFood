@@ -1,9 +1,9 @@
-import loaderStyles from './loader.module.css'
+import styles from './loader.module.css'
 
 export function Loader() {
   return (
-    <div className="d-flex justify-content-center">
-      <div className={loaderStyles['lds-ring']}>
+    <div className={styles.wr}>
+      <div className={styles['lds-ring']}>
         <div />
         <div />
         <div />

@@ -1,3 +1,10 @@
+.wr {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 100px - 160px);
+}
+
 .lds-ring {
     display: inline-block;
     position: relative;

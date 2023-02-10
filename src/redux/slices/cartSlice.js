@@ -10,6 +10,14 @@ const cartSlice = createSlice({
       return state.filter((cartItem) => cartItem.id !== action.payload)
     },
 
+    changeItemIsChacked(state, action) {
+      const currentItem = state.find((item) => item.id === action.payload)
+
+      if (currentItem) {
+        currentItem.isChecked = !currentItem.isChecked
+      }
+    },
+
     addItemInCart: {
       reducer(state, action) {
         state.push(action.payload)
@@ -19,15 +27,45 @@ const cartSlice = createSlice({
           payload: {
             id,
             count: 1,
-            isChecked: false,
+            isChecked: true,
           },
         }
       },
     },
+
+    clearCart() {
+      return []
+    },
+
+    itemIncrement(state, action) {
+      return state.map((item) => {
+        if (item.id === action.payload) {
+          return {
+            ...item,
+            count: item.count + 1,
+          }
+        }
+        return item
+      })
+    },
+
+    itemDecrement(state, action) {
+      return state.map((item) => {
+        if (item.id === action.payload) {
+          return {
+            ...item,
+            count: item.count - 1,
+          }
+        }
+        return item
+      })
+    },
   },
 })
 
-export const { deleteItemFromCart, addItemInCart } = cartSlice.actions
+export const {
+  deleteItemFromCart, addItemInCart, clearCart, itemIncrement, itemDecrement, changeItemIsChacked,
+} = cartSlice.actions
 
 export const getCartSelector = (state) => state.cart
 

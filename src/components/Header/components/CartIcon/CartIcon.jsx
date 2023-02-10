@@ -1,16 +1,13 @@
 import classNames from 'classnames'
 import { useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
+import { ItemsInCart } from '../ItemsInCart/ItemsInCart'
 import styles from './cartIcon.module.css'
 
 export function Cart() {
   const navigate = useNavigate()
 
   const items = useSelector((state) => state.cart)
-  const total = items.reduce(
-    (previousValue, currentItem) => previousValue + currentItem.count,
-    0,
-  )
 
   const clickHandler = (e) => {
     e.preventDefault()
@@ -18,6 +15,7 @@ export function Cart() {
   }
   return (
     <div className={styles.cart}>
+      <ItemsInCart quantity={items.length} />
       <Link onClick={clickHandler} to="/#">
         <i className={classNames(
           'bi bi-cart3',
@@ -25,7 +23,6 @@ export function Cart() {
         )}
         />
       </Link>
-      <span className={styles.total_price}>{total}</span>
     </div>
   )
 }

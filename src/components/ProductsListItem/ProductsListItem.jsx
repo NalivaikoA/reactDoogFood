@@ -1,17 +1,24 @@
-import { useDispatch } from 'react-redux'
-import { addItemInCart } from '../../redux/slices/cartSlice'
+import { useDispatch, useSelector } from 'react-redux'
+import {
+  addItemInCart,
+  deleteItemFromCart,
+} from '../../redux/slices/cartSlice'
 import styles from './productsListItem.module.css'
 
 export function ProductsListItem({
   id, name, price, wight, img,
 }) {
   const dispatch = useDispatch()
+  const items = useSelector((state) => state.cart)
+  const isItemInCart = items.some((item) => item.id === id)
 
   const clickHandler = (e) => {
     e.stopPropagation()
-    e.preventDefault()
-
-    dispatch(addItemInCart(id))
+    if (isItemInCart) {
+      dispatch(deleteItemFromCart(id))
+    } else {
+      dispatch(addItemInCart(id))
+    }
   }
 
   return (
@@ -29,7 +36,13 @@ export function ProductsListItem({
         <p>{name}</p>
       </div>
       <div className={styles.button__body}>
-        <button onClick={clickHandler} type="button" className="btn btn-warning">В корзину</button>
+        <button
+          onClick={clickHandler}
+          type="button"
+          className={isItemInCart ? 'btn btn-danger' : 'btn btn-warning'}
+        >
+          {isItemInCart ? 'Удалить из корзины' : 'В корзину'}
+        </button>
       </div>
     </div>
   )
