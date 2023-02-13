@@ -15,6 +15,7 @@ export const store = configureStore({
   preloadedState: getIniteState(),
 })
 
+console.log('Рендерится store')
 console.log(store.getState())
 
 store.subscribe(() => {

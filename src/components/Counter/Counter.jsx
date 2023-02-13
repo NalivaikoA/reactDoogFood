@@ -5,7 +5,7 @@ import {
 import styles from './counter.module.css'
 
 export function Counter({ count, stock, id }) {
-  console.log('Counter Render')
+  // console.log('Counter Render')
 
   const dispatch = useDispatch()
 

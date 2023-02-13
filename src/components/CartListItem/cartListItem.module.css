@@ -18,6 +18,24 @@
     padding: 5px 10px;
 }
 
+.card_body {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    margin: 10px 0;
+}
+
+.card_body > p:nth-child(even) {
+    margin: 0;
+    font-family: PT Sans,Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    color: #333;
+}
+
+.card_body > p:last-child{
+font-weight: 700;
+}
+
 .card_name input[type=checkbox] {
     transform: scale(1.2);
 }
@@ -33,9 +51,37 @@
 .image__body {
     height: 120px;
     margin: 10px;
+    min-width: 120px;
 }
 
 .card__image {
     height: 100%;
 }
 
+.wrCounterPrice {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.stock {
+    margin-right: 10px;
+    min-width: 92px;
+}
+
+.stock p:first-child {
+    margin: 0;
+    font-family: PT Sans,Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.description {
+    padding: 0 10px;
+    width: 100%;
+    max-width: 420px;
+    font-family: PT Sans,Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    color: #333;
+}
