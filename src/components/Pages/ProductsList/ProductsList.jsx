@@ -9,6 +9,7 @@ import { withQuery } from '../../HOCs/withQuery'
 import { getSearchSelector } from '../../../redux/slices/filterSlice'
 import { getQueryKey } from './utils'
 import { getIniteState } from '../../../redux/initState'
+import { dogFoodApi } from '../../../api/DogFoodApi'
 // import { dogFoodApi } from '../../../api/DogFoodApi'
 
 function ProductsListInner({ products }) {
@@ -51,24 +52,8 @@ export function ProductsList() {
     data: products, isLoading, isError, error, refetch,
   } = useQuery({
     queryKey: getQueryKey(search),
-    queryFn: () => fetch(`https://api.react-learning.ru/products/search?query=${search}`, {
-      headers: {
-        authorization: `Bearer ${token}`,
-      },
-    }).then((res) => {
-      if (res.status >= 400 && res.status < 500) {
-        throw new Error(`Произошла ошибка при получении списка продуктов.
-        Проверьте отправляемые данные. Status: ${res.status}`)
-      }
-
-      if (res.status >= 500) {
-        throw new Error(`Произошла ошибка при получении списка продуктов.
-          Попробуйте сделать запрос позже. Status: ${res.status}`)
-      }
-
-      return res.json()
-    }),
-    enabled: (token !== undefined) && (token !== ''),
+    queryFn: () => dogFoodApi.getAllProducts(search, token),
+    enabled: !!token,
   })
 
   console.log({

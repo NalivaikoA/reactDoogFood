@@ -133,7 +133,7 @@ transition: 0.3s;
     padding-bottom: 3px;
 }
 
-.wr_right_totalPriceDiscount p:last-child {
+.wr_right_totalPriceDiscount p:nth-child(2) {
     text-decoration: line-through;
 }
 

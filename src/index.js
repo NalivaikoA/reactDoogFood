@@ -46,7 +46,7 @@ const router = createBrowserRouter([
       },
     ],
   },
-])
+], { basename: '/reactDoogFood' })
 // ,{ basename: '/reactDoogFood' }
 
 const queryClient = new QueryClient({

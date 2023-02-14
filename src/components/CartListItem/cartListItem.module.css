@@ -67,6 +67,11 @@ font-weight: 700;
 .stock {
     margin-right: 10px;
     min-width: 92px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 140px;
 }
 
 .stock p:first-child {
@@ -84,4 +89,21 @@ font-weight: 700;
     font-family: PT Sans,Helvetica,Arial,sans-serif;
     font-size: 14px;
     color: #333;
+}
+
+.stock a:visited, a:link, a:active
+{
+    text-decoration: none;
+    font-family: PT Sans,Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    color: #333;
+}
+
+.stock a:hover{
+    color: rgb(255, 1, 1);
+    }
+
+.link {
+    align-self: flex-start;
+    margin-top: 10px;
 }

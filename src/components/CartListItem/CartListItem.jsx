@@ -1,22 +1,19 @@
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
+import { Link } from 'react-router-dom'
 // import { deleteItemFromCart } from '../../redux/slices/cartSlice'
-import { changeItemIsChacked, deleteItemFromCart, getCartSelector }
+import { changeItemIsChacked, deleteItemFromCart }
   from '../../redux/slices/cartSlice'
 import { Counter } from '../Counter/Counter'
 import styles from './cartListItem.module.css'
 
 export function CartListItem({
-  id, name, price, img, stock, description,
+  id, name, price, img, stock, description, count, isChecked,
 }) {
-  console.log(id)
   const dispatch = useDispatch()
 
-  const cart = useSelector(getCartSelector)
-
   // eslint-disable-next-line no-shadow
-  const getCartItemById = (id) => cart.find((item) => item.id === id)
-
-  const deleteItemHandler = () => {
+  const deleteItemHandler = (e) => {
+    e.preventDefault()
     dispatch(deleteItemFromCart(id))
   }
 
@@ -30,7 +27,7 @@ export function CartListItem({
         <div className={styles.card_name}>
           <input
             type="checkbox"
-            checked={getCartItemById(id).isChecked}
+            checked={isChecked}
             onChange={changeStatusHandler}
           />
           <p>{name}</p>
@@ -43,13 +40,15 @@ export function CartListItem({
             <p>{description}</p>
           </div>
           <div className={styles.stock}>
-            <p>
-              В наличии:
-              {' '}
-              {stock}
-            </p>
-            <Counter id={id} stock={stock} count={getCartItemById(id).count} />
-            <button onClick={deleteItemHandler} type="button">Удалить</button>
+            <div>
+              <p>
+                В наличии:
+                {' '}
+                {stock}
+              </p>
+              <Counter id={id} stock={stock} count={count} />
+            </div>
+            <Link className={styles.link} onClick={deleteItemHandler} to="/#">Удалить</Link>
           </div>
           <p>
             {price}

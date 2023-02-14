@@ -1,6 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { useQuery } from '@tanstack/react-query'
+import { useEffect } from 'react'
 import styles from './cart.module.css'
 import {
   clearCart,
@@ -11,6 +12,7 @@ import {
 import { CartListItem } from '../../CartListItem/CartListItem'
 import { Loader } from '../../Loader/Loader'
 import { getIniteState } from '../../../redux/initState'
+import { dogFoodApi } from '../../../api/DogFoodApi'
 
 export function Cart() {
   const navigate = useNavigate()
@@ -27,60 +29,69 @@ export function Cart() {
     user: { token },
   } = getIniteState()
 
+  useEffect(() => {
+    if (!token) {
+      navigate('/signin')
+    }
+  }, [token])
+
   const cart = useSelector(getCartSelector)
 
   const isAllChecked = cart.every((item) => item.isChecked === true)
+  const getQueryCartKey = (item) => ['cart', item]
 
   const {
     data: products,
     isLoading,
     isError,
   } = useQuery({
-    queryKey: ['cart'],
-    queryFn: () => Promise.all(
-      cart
-        .map((product) => product.id)
-        .map((id) => fetch(`https://api.react-learning.ru/products/${id}`, {
-          headers: {
-            authorization: `Bearer ${token}`,
-          },
-        }).then((res) => res.json())),
-    ),
+    queryKey: [getQueryCartKey(cart.length)],
+    queryFn: () => dogFoodApi.getProductsByIds(cart.map((product) => product.id), token),
     enabled: !!token,
   })
 
   if (isLoading) return <Loader />
   if (isError) return <h1>Error happend</h1>
 
-  // const cartIsChecked = []
-  // // eslint-disable-next-line no-plusplus
-  // for (let i = 0; i < cart.length; i++) {
-  //   if (cart[i].isChecked === true) {
-  //     cartIsChecked.push(cart[i])
-  //   }
-  // }
-  // console.log(cartIsChecked)
-  // console.log(cartIsChecked[0].id)
+  const cartIsChecked = []
+  // eslint-disable-next-line no-plusplus
+  for (let i = 0; i < cart.length; i++) {
+    if (cart[i].isChecked === true) {
+      cartIsChecked.push(cart[i])
+    }
+  }
 
-  // const getCartItemById = (id) => cartIsChecked.find((item) => item.id === id)
-  // console.log(getCartItemById(cartIsChecked[0].id))
+  const quantity = cartIsChecked.reduce(
+    (previousVal, currentItem) => previousVal + currentItem.count,
+    0,
+  )
 
-  // console.log(products)
-  // console.log(cart)
-  // const getCartItemFetchById = (id) => products.find((item) => item.id === id)
+  const getCartItemById = (idFromFetch) => cart.find((item) => item.id === idFromFetch)
+  const getCartFetchItemById = (idFromCart) => products.find((item) => item._id === idFromCart)
 
-  // // eslint-disable-next-line no-undef
-  // console.log(products[0]._id)
-  // console.log(cart[0].id)
-  // console.log(getCartItemFetchById(cart[0].id))
-  // console.log(getCartItemFetchById(products[0]._id))
+  const totalSum = cartIsChecked.reduce(
+    (previousVal, currentItem) => previousVal
+      // eslint-disable-next-line no-unsafe-optional-chaining
+      + currentItem.count * getCartFetchItemById(currentItem.id)?.price,
+    0,
+  )
 
-  // const totalSum = cartIsChecked.reduce((previousVal, currentItem) => {
-  //   const updatedSum =
-  // previousVal + currentItem.count * getCartItemFetchById(currentItem.id).price
-  //   return updatedSum
-  // }, 0)
-  // console.log(totalSum)
+  const totalSumFormat = new Intl.NumberFormat('ru-RU').format(totalSum)
+
+  const totalSumWithDiscount = cartIsChecked.reduce(
+    (previousVal, currentItem) => {
+      const cartFetchItemById = getCartFetchItemById(currentItem.id)
+      return (
+        previousVal
+        + currentItem.count
+          // eslint-disable-next-line no-unsafe-optional-chaining
+          * (cartFetchItemById?.price * ((100 - cartFetchItemById?.discount) * 0.01))
+      )
+    },
+    0,
+  )
+
+  const totalSumWithDiscountFormat = new Intl.NumberFormat('ru-RU').format(totalSumWithDiscount)
 
   const selectHandler = () => {
     if (isAllChecked) {
@@ -143,6 +154,8 @@ export function Cart() {
                   stock={el.stock}
                   discount={el.discount}
                   description={el.description}
+                  isChecked={getCartItemById(el._id)?.isChecked}
+                  count={getCartItemById(el._id)?.count}
                 />
               ))}
             </div>
@@ -152,12 +165,26 @@ export function Cart() {
               <p>Условия заказа</p>
             </div>
             <div className={styles.wr_right_totalPriceDiscount}>
-              <p>Итого:</p>
-              <p>105 000 ₽</p>
+              <p>Итого товаров:</p>
+              {totalSumFormat !== totalSumWithDiscountFormat && (
+              <p>
+                {totalSumFormat}
+                {' '}
+                ₽
+              </p>
+              )}
             </div>
             <div className={styles.wr_right_totalPrice}>
-              <p>3 товара</p>
-              <p>100 000 ₽</p>
+              <p>
+                {quantity}
+                {' '}
+                шт
+              </p>
+              <p>
+                {totalSumWithDiscountFormat}
+                {' '}
+                ₽
+              </p>
             </div>
             <button type="button" className="btn btn-warning">
               Перейти к оформлению
