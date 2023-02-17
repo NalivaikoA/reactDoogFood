@@ -1,9 +1,12 @@
+import classNames from 'classnames'
+import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 // import { deleteItemFromCart } from '../../redux/slices/cartSlice'
 import { changeItemIsChacked, deleteItemFromCart }
   from '../../redux/slices/cartSlice'
 import { Counter } from '../Counter/Counter'
+import { Modal } from '../Modal/Modal'
 import styles from './cartListItem.module.css'
 
 export function CartListItem({
@@ -11,10 +14,22 @@ export function CartListItem({
 }) {
   const dispatch = useDispatch()
 
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
+
+  const closeDeleteModalHandler = () => {
+    setIsDeleteModalOpen(false)
+  }
+
+  const openDeleteModalHandler = (e) => {
+    e.preventDefault()
+    setIsDeleteModalOpen(true)
+  }
+
   // eslint-disable-next-line no-shadow
   const deleteItemHandler = (e) => {
     e.preventDefault()
     dispatch(deleteItemFromCart(id))
+    closeDeleteModalHandler()
   }
 
   const changeStatusHandler = () => {
@@ -48,7 +63,7 @@ export function CartListItem({
               </p>
               <Counter id={id} stock={stock} count={count} />
             </div>
-            <Link className={styles.link} onClick={deleteItemHandler} to="/#">Удалить</Link>
+            <Link className={styles.link} onClick={openDeleteModalHandler} to="/#">Удалить</Link>
           </div>
           <p>
             {price}
@@ -56,6 +71,43 @@ export function CartListItem({
             ₽
           </p>
         </div>
+        <Modal isOpen={isDeleteModalOpen} closeHandler={closeDeleteModalHandler}>
+          <p>
+            Вы действительно хотите удалить
+            {' '}
+            <b>{name}</b>
+            {' '}
+            из корзины?
+          </p>
+          <div className="d-flex justify-content-center">
+            <button
+              onClick={closeDeleteModalHandler}
+              className={classNames(
+                'btn',
+                'btn-primary',
+                'btn-sm',
+                'me-3',
+                'mt-3',
+              )}
+              type="button"
+            >
+              отмена
+            </button>
+            <button
+              onClick={deleteItemHandler}
+              className={classNames(
+                'btn',
+                'btn-danger',
+                'btn-sm',
+                'me-3',
+                'mt-3',
+              )}
+              type="button"
+            >
+              Удалить
+            </button>
+          </div>
+        </Modal>
       </div>
     )
 

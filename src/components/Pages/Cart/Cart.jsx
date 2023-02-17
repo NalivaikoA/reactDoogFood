@@ -36,19 +36,26 @@ export function Cart() {
   }, [token])
 
   const cart = useSelector(getCartSelector)
+  const ids = []
+  cart.forEach((el) => {
+    ids.push(el.id)
+  })
 
   const isAllChecked = cart.every((item) => item.isChecked === true)
   const getQueryCartKey = (item) => ['cart', item]
 
   const {
-    data: products,
+    data,
     isLoading,
     isError,
   } = useQuery({
     queryKey: [getQueryCartKey(cart.length)],
     queryFn: () => dogFoodApi.getProductsByIds(cart.map((product) => product.id), token),
     enabled: !!token,
+    keepPreviousData: true,
   })
+
+  const products = data && data.filter((productFromServer) => ids.includes(productFromServer._id))
 
   if (isLoading) return <Loader />
   if (isError) return <h1>Error happend</h1>
