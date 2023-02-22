@@ -9,7 +9,7 @@ const cartSlice = createSlice({
       return state.filter((cartItem) => cartItem.id !== action.payload)
     },
 
-    changeItemIsChacked(state, action) {
+    changeItemIsChecked(state, action) {
       const currentItem = state.find((item) => item.id === action.payload)
 
       if (currentItem) {
@@ -83,7 +83,7 @@ export const {
   clearCart,
   itemIncrement,
   itemDecrement,
-  changeItemIsChacked,
+  changeItemIsChecked,
   selectAllItems,
   notSelectAllItems,
 } = cartSlice.actions

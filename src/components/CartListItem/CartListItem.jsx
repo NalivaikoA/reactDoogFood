@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 // import { deleteItemFromCart } from '../../redux/slices/cartSlice'
-import { changeItemIsChacked, deleteItemFromCart }
+import { changeItemIsChecked, deleteItemFromCart }
   from '../../redux/slices/cartSlice'
 import { Counter } from '../Counter/Counter'
 import { Modal } from '../Modal/Modal'
@@ -33,7 +33,7 @@ export function CartListItem({
   }
 
   const changeStatusHandler = () => {
-    dispatch(changeItemIsChacked(id))
+    dispatch(changeItemIsChecked(id))
   }
 
   return (

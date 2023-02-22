@@ -4,6 +4,7 @@ import { HeaderSignUp } from '../HeaderSignUp/HeaderSignUp'
 import { HeaderSignOut } from '../HeaderSignOut/HeaderSignOut'
 import { Cart } from '../CartIcon/CartIcon'
 import { FavouriteIcon } from '../FavouriteIcon/FavouriteIcon'
+import { HeaderProfile } from '../HeaderProfile/HeaderProfile'
 
 export function HeaderBar() {
   return (
@@ -13,6 +14,7 @@ export function HeaderBar() {
       <HeaderSignIn />
       <HeaderSignUp />
       <HeaderSignOut />
+      <HeaderProfile />
     </div>
   )
 }
