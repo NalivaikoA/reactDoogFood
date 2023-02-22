@@ -1,0 +1,113 @@
+.card {
+    border: 1px solid #c8c9cd;
+    border-radius: 8px;
+    display: flex; 
+    flex-direction: column;
+    width: 100%;
+    background-color: white;
+    margin: 10px 0;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.18);
+    padding: 0 20px 20px 20px;
+}
+
+.card_name {
+    display: flex;
+    align-items: center;
+    padding: 5px 10px;
+}
+
+.card_body {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    margin: 10px 0;
+}
+
+.card_body > p:nth-child(even) {
+    margin: 0;
+    font-family: PT Sans,Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    color: #333;
+}
+
+.card_body > p:last-child{
+font-weight: 700;
+}
+
+.card_name input[type=checkbox] {
+    transform: scale(1.2);
+}
+
+.card_name p {
+    margin: 0;
+    font-family: PT Sans,Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    color: #333;
+    margin-left: 30px;
+}
+
+.image__body {
+    height: 120px;
+    margin: 10px;
+    min-width: 120px;
+}
+
+.card__image {
+    height: 100%;
+}
+
+.wrCounterPrice {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.stock {
+    margin-right: 10px;
+    min-width: 92px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 140px;
+}
+
+.stock p:first-child {
+    margin: 0;
+    font-family: PT Sans,Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.description {
+    padding: 0 10px;
+    width: 100%;
+    max-width: 420px;
+    font-family: PT Sans,Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    color: #333;
+}
+
+.stock a:visited, a:link, a:active
+{
+    text-decoration: none;
+    font-family: PT Sans,Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    color: #333;
+}
+
+.stock a:hover{
+    color: rgb(255, 1, 1);
+    }
+
+.link {
+    align-self: flex-start;
+    margin-top: 5px;
+}
+
+.buttonBuy {
+padding-top: 15px;
+}

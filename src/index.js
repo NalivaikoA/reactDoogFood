@@ -18,6 +18,7 @@ import { SignUpForm } from './components/Pages/Forms/SignUpForm/SignUpForm'
 import { Main } from './components/Main/Main'
 import { store } from './redux/store'
 import { Cart } from './components/Pages/Cart/Cart'
+import { Favourite } from './components/Pages/Favourite/Favourite'
 
 const router = createBrowserRouter([
   {
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
       {
         path: 'cart',
         element: <Cart />,
+      },
+      {
+        path: 'favourite',
+        element: <Favourite />,
       },
     ],
   },

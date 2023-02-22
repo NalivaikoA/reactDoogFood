@@ -1,0 +1,145 @@
+import classNames from 'classnames'
+import { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
+import { addItemInCart, deleteItemFromCart } from '../../redux/slices/cartSlice'
+import {
+  changeFavouriteItemIsChecked,
+  deleteItemFromFavourite,
+} from '../../redux/slices/favouriteSlice'
+import { Modal } from '../Modal/Modal'
+import styles from './favouriteListItem.module.css'
+
+export function FavouriteListItem({
+  id,
+  name,
+  price,
+  img,
+  stock,
+  description,
+  isChecked,
+}) {
+  const dispatch = useDispatch()
+
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
+
+  const closeDeleteModalHandler = () => {
+    setIsDeleteModalOpen(false)
+  }
+
+  const openDeleteModalHandler = (e) => {
+    e.preventDefault()
+    setIsDeleteModalOpen(true)
+  }
+
+  // eslint-disable-next-line no-shadow
+  const deleteItemHandler = (e) => {
+    e.preventDefault()
+    dispatch(deleteItemFromFavourite(id))
+    closeDeleteModalHandler()
+  }
+
+  const changeStatusHandler = () => {
+    dispatch(changeFavouriteItemIsChecked(id))
+  }
+
+  const itemsCart = useSelector((state) => state.cart)
+  const isItemInCart = itemsCart.some((item) => item.id === id)
+
+  const clickHandler = (e) => {
+    e.stopPropagation()
+    if (isItemInCart) {
+      dispatch(deleteItemFromCart(id))
+    } else {
+      dispatch(addItemInCart(id))
+    }
+  }
+
+  return (
+    <div id={id} className={styles.card}>
+      <div className={styles.card_name}>
+        <input
+          type="checkbox"
+          checked={isChecked}
+          onChange={changeStatusHandler}
+        />
+        <p>{name}</p>
+      </div>
+      <div className={styles.card_body}>
+        <div className={styles.image__body}>
+          <img src={img} className={styles.card__image} alt="картинка" />
+        </div>
+        <div className={styles.description}>
+          <p>{description}</p>
+        </div>
+        <div className={styles.stock}>
+          <div>
+            <p>
+              В наличии:
+              {' '}
+              {stock}
+            </p>
+            <div className={styles.buttonBuy}>
+              <button
+                onClick={clickHandler}
+                type="button"
+                className={isItemInCart ? 'btn btn-danger btn-sm' : 'btn btn-primary btn-sm'}
+              >
+                {isItemInCart ? 'Удалить из корзины' : 'В корзину'}
+              </button>
+            </div>
+          </div>
+          <Link
+            className={styles.link}
+            onClick={openDeleteModalHandler}
+            to="/#"
+          >
+            Удалить
+          </Link>
+        </div>
+        <p>
+          {price}
+          {' '}
+          ₽
+        </p>
+      </div>
+      <Modal isOpen={isDeleteModalOpen} closeHandler={closeDeleteModalHandler}>
+        <p>
+          Вы действительно хотите удалить
+          {' '}
+          <b>{name}</b>
+          {' '}
+          из списка Избранное?
+        </p>
+        <div className="d-flex justify-content-center">
+          <button
+            onClick={closeDeleteModalHandler}
+            className={classNames(
+              'btn',
+              'btn-primary',
+              'btn-sm',
+              'me-3',
+              'mt-3',
+            )}
+            type="button"
+          >
+            отмена
+          </button>
+          <button
+            onClick={deleteItemHandler}
+            className={classNames(
+              'btn',
+              'btn-danger',
+              'btn-sm',
+              'me-3',
+              'mt-3',
+            )}
+            type="button"
+          >
+            Удалить
+          </button>
+        </div>
+      </Modal>
+    </div>
+  )
+}

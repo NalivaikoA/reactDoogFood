@@ -1,0 +1,37 @@
+.wr {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    margin-top: 15px;
+    gap: 10px;
+    width: auto;
+}
+
+.wr a:visited, a:link, a:active
+{
+    text-decoration: none;
+    font-family: PT Sans,Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    color: #333;
+}
+
+.wr a:hover{
+    color: rgb(255, 1, 1);
+    }
+
+.filtersItem {
+    display: flex;
+    align-items: center;
+    background-color: #f7f7f7;
+    border-radius: 17px;
+    font-size: 14px;
+    height: 34px;
+    margin: 8px 8px 0 0;
+    padding: 0 12px;
+    white-space: nowrap;
+    }
+
+.active {
+    background-color: orange;
+}

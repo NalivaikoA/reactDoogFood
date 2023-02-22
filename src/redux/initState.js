@@ -11,6 +11,7 @@ export const initState = {
     search: '',
   },
   cart: [],
+  favourite: [],
 }
 
 console.log('Рендерится InitState')

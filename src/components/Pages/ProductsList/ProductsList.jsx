@@ -10,6 +10,7 @@ import { getSearchSelector } from '../../../redux/slices/filterSlice'
 import { getQueryKey } from './utils'
 import { getIniteState } from '../../../redux/initState'
 import { dogFoodApi } from '../../../api/DogFoodApi'
+import { Filters } from '../../Filters/Filters'
 // import { dogFoodApi } from '../../../api/DogFoodApi'
 
 function ProductsListInner({ products }) {
@@ -17,17 +18,21 @@ function ProductsListInner({ products }) {
   if (!products.length) return <p>List is empty ...</p>
 
   return (
-    <div className={styles.wr}>
-      {products.map((el) => (
-        <ProductsListItem
-          key={el._id}
-          id={el._id}
-          name={el.name}
-          price={el.price}
-          wight={el.wight}
-          img={el.pictures}
-        />
-      ))}
+    <div className={styles.productListWr}>
+      {' '}
+      <Filters />
+      <div className={styles.wr}>
+        {products.map((el) => (
+          <ProductsListItem
+            key={el._id}
+            id={el._id}
+            name={el.name}
+            price={el.price}
+            wight={el.wight}
+            img={el.pictures}
+          />
+        ))}
+      </div>
     </div>
   )
 }
