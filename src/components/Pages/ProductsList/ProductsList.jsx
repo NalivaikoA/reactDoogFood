@@ -19,7 +19,14 @@ import {
 
 function ProductsListInner({ products, addProductHandler }) {
   console.log('Рендерится компонент ProductsListInner')
-  if (!products.length) return <p>List is empty ...</p>
+  if (!products.length) {
+    return (
+      <div className={styles.emptyList}>
+        <p>Товары не найдены</p>
+        <i className="bi bi-emoji-frown" />
+      </div>
+    )
+  }
 
   return (
     <div className={styles.productListWr}>
