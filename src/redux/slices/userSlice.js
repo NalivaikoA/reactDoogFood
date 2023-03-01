@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit'
-// import { TOKEN_LS_KEY_A } from '../constants'
 import { initState } from '../initState'
 
 const userSlice = createSlice({
@@ -10,9 +9,13 @@ const userSlice = createSlice({
       // eslint-disable-next-line no-param-reassign
       state.token = action.payload
     },
+    addUserId(state, action) {
+      // eslint-disable-next-line no-param-reassign
+      state.userId = action.payload
+    },
   },
 })
 
-export const { addToken } = userSlice.actions
+export const { addToken, addUserId } = userSlice.actions
 
 export const userReducer = userSlice.reducer

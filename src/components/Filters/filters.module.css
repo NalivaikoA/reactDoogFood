@@ -16,10 +16,6 @@
     color: #333;
 }
 
-.wr a:hover{
-    color: rgb(255, 1, 1);
-    }
-
 .filtersItem {
     display: flex;
     align-items: center;
@@ -30,8 +26,38 @@
     margin: 8px 8px 0 0;
     padding: 0 12px;
     white-space: nowrap;
+    transition-duration: .3s;
     }
 
+
 .active {
+    display: flex;
+    align-items: center;
     background-color: orange;
+    border-radius: 17px;
+    font-size: 14px;
+    height: 34px;
+    margin: 8px 8px 0 0;
+    padding: 0 12px;
+    white-space: nowrap;
+    transition-duration: .3s;
 }
+
+.filtersItem:hover {
+    background-color: #ece9e9;
+    cursor: pointer;
+    }
+
+.filtersItem:hover > a {
+    color: rgb(255, 1, 1);
+    }
+
+
+.active:hover {
+    background-color: rgb(249, 179, 49);
+    cursor: pointer;
+    }
+    
+.active:hover > a {
+    color: rgb(255, 1, 1);
+    }

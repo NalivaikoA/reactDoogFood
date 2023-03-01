@@ -111,3 +111,7 @@ font-weight: 700;
 .buttonBuy {
 padding-top: 15px;
 }
+
+.buttonBuy button {
+    max-width: 90px;
+}

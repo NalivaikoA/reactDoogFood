@@ -172,6 +172,7 @@ export function Favourite() {
                   img={el.pictures}
                   stock={el.stock}
                   description={el.description}
+                  discount={el.discount}
                   isChecked={getFavouriteItemById(el._id)?.isChecked}
                   count={getFavouriteItemById(el._id)?.count}
                 />

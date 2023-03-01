@@ -20,6 +20,8 @@ import { store } from './redux/store'
 import { Cart } from './components/Pages/Cart/Cart'
 import { Favourite } from './components/Pages/Favourite/Favourite'
 import { Profile } from './components/Pages/Profile/Profile'
+import { AddProductForm } from './components/Pages/Forms/AddProductForm/AddProductForm'
+import { DetailPage } from './components/Pages/DetailPage/DetailPage'
 
 const router = createBrowserRouter([
   {
@@ -33,6 +35,10 @@ const router = createBrowserRouter([
       {
         path: 'products',
         element: <ProductsList />,
+      },
+      {
+        path: 'products/:productId',
+        element: <DetailPage />,
       },
       {
         path: 'signup',
@@ -53,6 +59,10 @@ const router = createBrowserRouter([
       {
         path: 'profile',
         element: <Profile />,
+      },
+      {
+        path: 'addNewProduct',
+        element: <AddProductForm />,
       },
     ],
   },

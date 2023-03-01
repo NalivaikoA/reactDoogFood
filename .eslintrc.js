@@ -26,6 +26,19 @@ module.exports = {
     'import/no-cycle': 0,
     'import/prefer-default-export': 0,
     'react/jsx-filename-extension': 0,
+    'jsx-a11y/click-events-have-key-events': 'off',
+    'jsx-a11y/no-static-element-interactions': [
+      'error',
+      {
+        handlers: [
+          'onMouseDown',
+          'onMouseUp',
+          'onKeyPress',
+          'onKeyDown',
+          'onKeyUp',
+        ],
+      },
+    ],
     'max-len': ['error', { code: 100 }],
     'linebreak-style': 0,
     'no-underscore-dangle': ['error', { allow: ['_id'] }],

@@ -2,7 +2,10 @@ import classNames from 'classnames'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { addItemInCart, deleteItemFromCart } from '../../redux/slices/cartSlice'
+import {
+  addItemInCart,
+  deleteItemFromCart,
+} from '../../redux/slices/cartSlice'
 import {
   changeFavouriteItemIsChecked,
   deleteItemFromFavourite,
@@ -18,8 +21,11 @@ export function FavouriteListItem({
   stock,
   description,
   isChecked,
+  discount,
 }) {
   const dispatch = useDispatch()
+  const itemsCart = useSelector((state) => state.cart)
+  const isItemInCart = itemsCart.some((item) => item.id === id)
 
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
 
@@ -43,9 +49,6 @@ export function FavouriteListItem({
     dispatch(changeFavouriteItemIsChecked(id))
   }
 
-  const itemsCart = useSelector((state) => state.cart)
-  const isItemInCart = itemsCart.some((item) => item.id === id)
-
   const clickHandler = (e) => {
     e.stopPropagation()
     if (isItemInCart) {
@@ -54,6 +57,8 @@ export function FavouriteListItem({
       dispatch(addItemInCart(id))
     }
   }
+
+  const priceDiscount = Math.round(price * (1 - discount / 100))
 
   return (
     <div id={id} className={styles.card}>
@@ -83,7 +88,11 @@ export function FavouriteListItem({
               <button
                 onClick={clickHandler}
                 type="button"
-                className={isItemInCart ? 'btn btn-danger btn-sm' : 'btn btn-primary btn-sm'}
+                className={
+                  isItemInCart
+                    ? 'btn btn-danger btn-sm m-0 p-0'
+                    : 'btn btn-primary btn-sm'
+                }
               >
                 {isItemInCart ? 'Удалить из корзины' : 'В корзину'}
               </button>
@@ -97,11 +106,34 @@ export function FavouriteListItem({
             Удалить
           </Link>
         </div>
-        <p>
-          {price}
-          {' '}
-          ₽
-        </p>
+        {!discount ? (
+          <p>
+            {price}
+            {' '}
+            ₽
+          </p>
+        ) : (
+          <div>
+            <p
+              style={{
+                color: 'red',
+                fontSize: '14px',
+                margin: 0,
+                fontFamily: 'PT Sans,Helvetica,Arial,sans-serif',
+                fontWeight: 700,
+              }}
+            >
+              {priceDiscount}
+              {' '}
+              ₽
+            </p>
+            <p style={{ fontSize: '12px', textDecoration: 'line-through' }}>
+              {price}
+              {' '}
+              ₽
+            </p>
+          </div>
+        )}
       </div>
       <Modal isOpen={isDeleteModalOpen} closeHandler={closeDeleteModalHandler}>
         <p>

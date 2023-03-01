@@ -6,7 +6,7 @@ import classNames from 'classnames'
 import { useMutation } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
 import { signUpFormValidationSchema } from '../helpers/Validator'
-import signUpFormStyles from './signUpForm.module.css'
+import styles from './signUpForm.module.css'
 import { dogFoodApi } from '../../../../api/DogFoodApi'
 
 const initialValues = {
@@ -39,7 +39,7 @@ export function SignUpForm() {
       validationSchema={signUpFormValidationSchema}
       onSubmit={submitHandler}
     >
-      <Form className={signUpFormStyles.form}>
+      <Form className={styles.form}>
         <label htmlFor="email">Электронный адрес</label>
         <Field name="email" placeholder="Email" type="email" />
         <ErrorMessage component="p" className="error" name="email" />
@@ -56,7 +56,7 @@ export function SignUpForm() {
           className={classNames(
             'btn',
             'btn-primary',
-            signUpFormStyles.submitBtn,
+            styles.submitBtn,
           )}
           type="submit"
         >

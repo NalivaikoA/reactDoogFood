@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import classNames from 'classnames'
-import headerSignUpStyles from './headerSignUp.module.css'
+import styles from './headerSignUp.module.css'
 
 export function HeaderSignUp() {
   return (
@@ -10,7 +10,7 @@ export function HeaderSignUp() {
           <li className={classNames(
             'btn',
             'btn-primary',
-            headerSignUpStyles.liStyle,
+            styles.liStyle,
           )}
           >
             <Link to="/signup">Регистрация</Link>

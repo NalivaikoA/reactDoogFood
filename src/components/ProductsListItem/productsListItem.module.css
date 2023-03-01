@@ -8,7 +8,13 @@
     align-items: center;
     justify-content: space-between;
     max-width: 270px;
-    /* min-height: 300px; */
+    position: relative;
+}
+
+.card:hover {
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(55, 55, 55, 0.15);
+    scale: 1.002;
 }
 
 .image__body {
@@ -27,7 +33,7 @@
     width: 100%;
     text-align: left;
     padding-left: 10px;
-    min-height: 121.8px;
+    height: 100%;
     position: relative;
 }
 
@@ -40,6 +46,12 @@
     margin-bottom: 2px;
     color: gray;
     font-size: 12px;
+}
+
+.wightWr {
+    margin-bottom: 2px;
+    color: gray;
+    font-size: 12px; 
 }
 
 .card__body p:nth-child(3) {
@@ -78,4 +90,71 @@
 
 .icon:hover {
     color: black;
+    scale: 1.01;
+}
+
+.discount {
+    background-color: rgba(225, 65, 85, 0.9);
+    border-radius: 15px;
+    color: white;
+    padding: 0 5px;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+
+.discount p {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.priceDiscountWr {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.priceDiscountWr h6 {
+    color: rgba(225, 65, 85, 0.98);
+}
+
+.priceDiscountWr p {
+    font-size: 12px;
+    text-decoration: line-through;
+    font-family: sans-serif;
+    padding: 0;
+    margin: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+.gradient {
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(165deg,#ffd25e 16.44%,#b59646 63.42%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 22px;
+    font-family: Tahoma,Arial,Verdana,sans-serif;
+}
+
+.rating {
+    display: flex;
+    gap: 3px;
+    align-items: center;
+    margin-bottom: 5px;
+    position: absolute;
+    top: -22px;
+    left: 10px;
+}
+
+.rating i {
+    font-size: 12px;
+    align-self: start;
 }

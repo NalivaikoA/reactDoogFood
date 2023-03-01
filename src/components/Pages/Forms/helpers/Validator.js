@@ -22,3 +22,34 @@ export const signInFormValidationSchema = Yup.object({
     .min(5, 'Пароль слишком короткий - Поле должно содержать не менее 5 символов')
     .matches(/[a-zA-Z]/, 'Пароль может содержать только латинские буквы'),
 })
+
+export const addProductValidationSchema = Yup.object({
+  name: Yup.string()
+    .max(80, 'Поле должно содержать не более 80 символов')
+    .required('Заполните поле'),
+  price: Yup.number()
+    .required('Заполните поле'),
+  pictures: Yup.string()
+    .required('ПЗаполните поле'),
+  discount: Yup.number()
+    .required('Заполните поле'),
+  stock: Yup.number()
+    .required('Заполните поле'),
+  wight: Yup.string()
+    .max(8, 'Поле должно содержать не более 8 символов')
+    .required('Заполните поле'),
+  description: Yup.string()
+    .max(400, 'Поле должно содержать не более 400 символов')
+    .required('Заполните поле'),
+})
+
+export const addReviewValidationSchema = Yup.object({
+  text: Yup.string()
+    .max(400, 'Поле должно содержать не более 400 символов')
+    .required('Заполните поле'),
+  rating: Yup.number()
+    .required('Заполните поле')
+    .integer()
+    .max(5)
+    .min(1),
+})

@@ -1,56 +1,33 @@
-import { Link, useSearchParams } from 'react-router-dom'
-import classNames from 'classnames'
+import { useSearchParams } from 'react-router-dom'
 import styles from './filters.module.css'
+import {
+  DATA_FILTER,
+  FILTER_QUERY_NAME, POPULAR_FILTER, PRICE_FILTER, RATING_FILTER, SALES_FILTER,
+} from './constants'
+import { FilterItem } from './FilterItem/FilterItem'
 
-const FILTERS = [
-  'Популярные',
-  'Новинки',
-  'Сначала дешевыe',
-  'Сначала дорогие',
-  'По рейтингу',
-  'По скидке',
-]
+const FILTERS = [PRICE_FILTER, SALES_FILTER, RATING_FILTER, DATA_FILTER, POPULAR_FILTER]
 
 export function Filters() {
   const [searchParams, setSearchParams] = useSearchParams()
 
-  console.log({ searchParams, setSearchParams })
-
-  const clickFilterHandler = (filterName, e) => {
+  const clickFilterHandler = (filterType, isActive, e) => {
+    console.log(e)
     e.preventDefault()
-    setSearchParams({
-      ...Object.fromEntries(searchParams.entries()),
-      filterName,
-    })
+    if (!isActive) searchParams.delete(FILTER_QUERY_NAME)
+    else searchParams.set(FILTER_QUERY_NAME, filterType)
+    setSearchParams(searchParams)
   }
 
   return (
     <div className={styles.wr}>
-      {FILTERS.map((filterName) => (
+      {FILTERS.map((filter) => (
         <FilterItem
-          key={filterName}
+          key={filter.name}
+          {...filter}
           clickFilterHandler={clickFilterHandler}
-          filterName={filterName}
         />
       ))}
-    </div>
-  )
-}
-
-export function FilterItem({ filterName, clickFilterHandler }) {
-  const [searchParams] = useSearchParams()
-
-  const currentFilterName = searchParams.get('filterName')
-
-  return (
-    <div className={classNames(
-      styles.filtersItem,
-      { [styles.active]: currentFilterName === filterName },
-    )}
-    >
-      <Link onClick={(e) => clickFilterHandler(filterName, e)} to="/#">
-        {filterName}
-      </Link>
     </div>
   )
 }

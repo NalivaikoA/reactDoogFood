@@ -1,3 +1,14 @@
+.wr {
+    display: flex;
+    align-items: center;
+}
+
+.wr a:visited, a:link, a:active
+{
+    text-decoration: none;
+    color: black;
+}
+
 .icon {
     font-size: 30px;
     color: rgb(100, 91, 91);

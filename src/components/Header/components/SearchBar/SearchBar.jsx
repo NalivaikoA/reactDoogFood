@@ -32,11 +32,12 @@ export function SearchBar() {
   return (
     <nav className="navbar bg-transparent">
       <div className="container-fluid">
-        <form className="d-flex" role="search">
+        <form className="d-flex justify-content-center" role="search">
           <input
             value={search}
             onChange={changeSearchHandler}
             className="form-control me-2"
+            style={{ width: '350px' }}
             type="search"
             placeholder="Поиск"
             aria-label="Search"

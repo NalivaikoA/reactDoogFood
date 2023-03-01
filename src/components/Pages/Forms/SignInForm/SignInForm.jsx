@@ -4,14 +4,12 @@ import classNames from 'classnames'
 import {
   ErrorMessage, Field, Form, Formik,
 } from 'formik'
-// import { useContext } from 'react'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { dogFoodApi } from '../../../../api/DogFoodApi'
-// import { ContextApp } from '../../../../contexts/ContextApp'
-import { addToken } from '../../../../redux/slices/userSlice'
+import { addToken, addUserId } from '../../../../redux/slices/userSlice'
 import { signInFormValidationSchema } from '../helpers/Validator'
-import signInFormStyles from './signInForm.module.css'
+import styles from './signInForm.module.css'
 
 const initialValues = {
   email: '',
@@ -21,14 +19,15 @@ const initialValues = {
 export function SignInForm() {
   console.log('Рендерится компонент SignInForm')
   const dispatch = useDispatch()
-  // const { TOKEN_LS_KEY } = useContext(ContextApp)
   const navigate = useNavigate()
 
   const { mutateAsync, isLoading } = useMutation({
     mutationFn: (values) => dogFoodApi.signIn(values)
       .then((result) => {
+        console.log(result.token)
         dispatch(addToken(result.token))
-        /* localStorage.setItem(TOKEN_LS_KEY, JSON.stringify(result.token)) */
+        console.log(result.data._id)
+        dispatch(addUserId(result.data._id))
       }),
   })
 
@@ -43,7 +42,7 @@ export function SignInForm() {
       validationSchema={signInFormValidationSchema}
       onSubmit={submitHandler}
     >
-      <Form className={signInFormStyles.form}>
+      <Form className={styles.form}>
         <label htmlFor="email">Электронный адрес</label>
         <Field name="email" placeholder="Email" type="email" />
         <ErrorMessage component="p" className="error" name="email" />
@@ -57,7 +56,7 @@ export function SignInForm() {
           className={classNames(
             'btn',
             'btn-primary',
-            signInFormStyles.submitBtn,
+            styles.submitBtn,
           )}
           type="submit"
         >

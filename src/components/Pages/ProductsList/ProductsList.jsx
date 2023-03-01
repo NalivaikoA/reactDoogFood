@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 import { useEffect } from 'react'
 import { useQuery } from '@tanstack/react-query'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import styles from './productsList.module.css'
 import { ProductsListItem } from '../../ProductsListItem/ProductsListItem'
@@ -11,16 +11,28 @@ import { getQueryKey } from './utils'
 import { getIniteState } from '../../../redux/initState'
 import { dogFoodApi } from '../../../api/DogFoodApi'
 import { Filters } from '../../Filters/Filters'
+import {
+  FILTER_QUERY_NAME,
+  getFilteredProducts,
+} from '../../Filters/constants'
 // import { dogFoodApi } from '../../../api/DogFoodApi'
 
-function ProductsListInner({ products }) {
+function ProductsListInner({ products, addProductHandler }) {
   console.log('Рендерится компонент ProductsListInner')
   if (!products.length) return <p>List is empty ...</p>
 
   return (
     <div className={styles.productListWr}>
-      {' '}
-      <Filters />
+      <div className={styles.topWr}>
+        <Filters />
+        <button
+          onClick={addProductHandler}
+          type="button"
+          className="btn btn-primary btn-sm"
+        >
+          Добавить товар
+        </button>
+      </div>
       <div className={styles.wr}>
         {products.map((el) => (
           <ProductsListItem
@@ -30,6 +42,8 @@ function ProductsListInner({ products }) {
             price={el.price}
             wight={el.wight}
             img={el.pictures}
+            reviews={el.reviews}
+            discount={el.discount}
           />
         ))}
       </div>
@@ -43,9 +57,14 @@ export function ProductsList() {
   console.log('Рендерится компонент ProductsList')
   const navigate = useNavigate()
 
+  const [searchParams] = useSearchParams()
+  const currentFilterNameFromQuery = searchParams.get(FILTER_QUERY_NAME)
+
   const search = useSelector(getSearchSelector)
 
-  const { user: { token } } = getIniteState()
+  const {
+    user: { token },
+  } = getIniteState()
 
   useEffect(() => {
     if (!token) {
@@ -54,16 +73,26 @@ export function ProductsList() {
   }, [token])
 
   const {
-    data: products, isLoading, isError, error, refetch,
+    data = [],
+    isLoading,
+    isError,
+    error,
+    refetch,
   } = useQuery({
     queryKey: getQueryKey(search),
     queryFn: () => dogFoodApi.getAllProducts(search, token),
     enabled: !!token,
   })
 
-  console.log({
-    products, isLoading, isError, error, refetch,
-  })
+  let products = data
+
+  if (currentFilterNameFromQuery) {
+    products = getFilteredProducts(data, currentFilterNameFromQuery)
+  }
+
+  const addProductHandler = () => {
+    navigate('/addNewProduct')
+  }
 
   return (
     <ProductListInnerWithQuery
@@ -72,6 +101,7 @@ export function ProductsList() {
       isError={isError}
       error={error}
       refetch={refetch}
+      addProductHandler={addProductHandler}
     />
   )
 }
