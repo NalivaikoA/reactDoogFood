@@ -12,8 +12,6 @@
 - Добавление отзыва к товару
 - Возможность создать свой товар
 
-Пулл реквесты приветствуются!
-
 [посмотреть demo](https://nalivaikoa.github.io/reactDoogFood/)
 
 ## Стек
@@ -28,9 +26,3 @@
 1. Введите команду `npm install` для установки зависимостей.
 2. Введите команду `npm start`. Приложение запустится в режиме разработки.
 3. Откройте http://localhost:3000 для просмотра в вашем браузере. 
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
